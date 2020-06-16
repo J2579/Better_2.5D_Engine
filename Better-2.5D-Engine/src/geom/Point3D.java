@@ -2,6 +2,7 @@ package geom;
 
 import java.awt.Graphics;
 
+//we can also adapt this to be a vector
 public class Point3D implements Cloneable {
 
 	//screen manip
@@ -9,17 +10,28 @@ public class Point3D implements Cloneable {
 	private static final int PT_RD = 10;
 	
 	private double x,y,z; //internal
-	private int ix, iy;   //external
+	private double ix, iy;   //external
 	
 	private static final double sin45 = Math.sqrt(2) / 2.00;
 	private static final double cos30 = Math.cos(Math.toRadians(30));
 	private static final double sin30 = Math.sin(Math.toRadians(30));
 	
-	//Subject to change.
+	//Angles Subject to change.
+	/**
+	 +y,| +iy 		 +z/
+	    |			  /
+	    |			 /  
+	    |		 -z /
+	-ix |--------------------- +ix
+	    |           \ -x
+	    |            \
+	    |             \
+	 -y,| -iy          +x 
+	*/
 	private static final double XTransIX = cos30;
 	private static final double XTransIY = sin30;
 	private static final double YTransIX = 0.0;
-	private static final double YTransIY = -1.0;
+	private static final double YTransIY = -1.0; //fuckery is going on here
 	private static final double ZTransIX = cos30;
 	private static final double ZTransIY = -sin30;
 
@@ -52,7 +64,12 @@ public class Point3D implements Cloneable {
 		double dx = newX - getX();
 		double dy = newY - getY();
 		double dz = newZ - getZ();
+		
 		translate(dx, dy, dz);
+	}
+	
+	public void translate(Point3D vector) {
+		translate(vector.getX(), vector.getY(), vector.getZ());
 	}
 	
 	public void translate(double dx, double dy, double dz) {
@@ -84,6 +101,12 @@ public class Point3D implements Cloneable {
 		//are maximized at ±1, without accumulating.
 		int[] xy = new int[] {(int)(ix + sWidthHalf), (int)(sHeightHalf + iy)}; //trig makes it work 
 		return xy;
+	}
+	
+	public void invert() {
+		x *= -1;
+		y *= -1;
+		z *= -1;
 	}
 	
 	public double getX() {

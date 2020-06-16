@@ -8,7 +8,34 @@ import geom.Polygon3D;
 
 public class Configurations {
 	
-	public static ArrayList<Polygon3D> AlphaTestOne() {
+	public static ArrayList<Polygon3D> testPoint() {
+		Point3D ctr = new Point3D();
+		Polygon3D ctrGon = new Polygon3D(Color.WHITE);
+		ctrGon.add(ctr);
+		ArrayList<Polygon3D> objects = new ArrayList<Polygon3D>();
+		objects.add(ctrGon);
+		
+		return objects;
+	}
+	
+	public static ArrayList<Polygon3D> testSquare() {
+		Point3D negZ = new Point3D(0,0,-100);
+		Point3D posZ = new Point3D(0, 0, 100);
+		Point3D negX = new Point3D(-100,0,0);
+		Point3D posX = new Point3D(100,0,0);
+		Polygon3D square = new Polygon3D(Color.WHITE);
+		square.add(negX);
+		square.add(posZ);
+		square.add(posX);
+		square.add(negZ);
+		
+		ArrayList<Polygon3D> objects = new ArrayList<Polygon3D>();
+		objects.add(square);
+		
+		return objects;
+	}
+	
+	public static ArrayList<Polygon3D> alphaTestOne() {
 		Point3D negZ = new Point3D(0,0,-100);
 		Point3D posZ = new Point3D(0, 0, 100);
 		

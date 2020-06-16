@@ -29,7 +29,12 @@ public class Polygon3D {
 	}
 	
 	public void add(Point3D point) {
-		points.add(point); //addLast()
+		//execute order 66
+		//this clone is really important. Let's say we build a 4x4 square, all using
+		//pointers to the square's center point to create it. Every tick, the center
+		//is being updated 16 times, while the corners are being updated once - that is,
+		//the center will move 16 times as fast!
+		points.add(point.clone()); //addLast()
 	}
 	
 	public Point3D pointAt(int idx) {
@@ -45,6 +50,11 @@ public class Polygon3D {
 		if(!it.hasNext()) //empty polygon
 			return;
 		current = it.next();
+		
+		if(!it.hasNext()) { //single point
+			current.draw(g);
+			return;
+		}
 		
 		while(it.hasNext()) {
 			next = it.next();
@@ -70,6 +80,12 @@ public class Polygon3D {
 			sb.append("\n");
 		}
 		return sb.toString();
+	}
+	
+	public void translateAllByVector(Point3D vector) {
+		for(Point3D point : points) {
+			point.translate(vector);
+		}
 	}
 	
 	//fun stuff
